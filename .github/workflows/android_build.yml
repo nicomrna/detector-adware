@@ -3,7 +3,7 @@ name: Build Android APK
 on:
   push:
     branches: [ "main", "master" ]
-  workflow_dispatch: # Permite ejecutar la compilación manualmente si lo deseas
+  workflow_dispatch:
 
 jobs:
   build:
@@ -12,20 +12,22 @@ jobs:
     - uses: actions/checkout@v4
 
     - name: Set up JDK 17
-      uses: actions/setup-java@v4
+      uses: actions/setup-java@v5
       with:
         java-version: '17'
         distribution: 'temurin'
 
-    # Genera el wrapper de Gradle si no existe en el repositorio
-    - name: Setup Gradle Wrapper
+    # Verifica si existe gradlew; si no está, lo instala
+    - name: Ensure Gradle Wrapper
       run: |
         if [ ! -f ./gradlew ]; then
+          echo "Gradlew no encontrado, instalando..."
+          sudo apt-get update && sudo apt-get install -y gradle
           gradle wrapper
         fi
         chmod +x gradlew
 
-    # Compila el archivo APK ignorando errores de linting menores
+    # Compilación ignorando pruebas y análisis estático (lint)
     - name: Build Debug APK
       run: ./gradlew assembleDebug --stacktrace -x test -x lint
 

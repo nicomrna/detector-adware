@@ -17,19 +17,17 @@ jobs:
         java-version: '17'
         distribution: 'temurin'
 
-    # Verifica si existe gradlew; si no está, instala Gradle temporalmente para generarlo
     - name: Ensure Gradle Wrapper
       run: |
         if [ ! -f ./gradlew ]; then
-          echo "Gradlew no encontrado. Instalando Gradle..."
+          echo "Gradlew no encontrado, instalando..."
           sudo apt-get update && sudo apt-get install -y gradle
           gradle wrapper
         fi
         chmod +x gradlew
 
-    # Compilación con informe de errores extendido
     - name: Build Debug APK
-      run: ./gradlew assembleDebug --stacktrace --info -x test -x lint
+      run: ./gradlew assembleDebug --stacktrace -x test -x lint
 
     - name: Upload APK
       uses: actions/upload-artifact@v4

@@ -1,7 +1,6 @@
 package com.security.adwaredetector.ui
 
-import androidx.core.graphics.drawable.toBitmap
-import com.security.adwaredetector.R
+import androidx.compose.foundation.Image
 import androidx.compose.foundation.background
 import androidx.compose.foundation.layout.*
 import androidx.compose.foundation.lazy.LazyColumn
@@ -17,14 +16,13 @@ import androidx.compose.ui.Modifier
 import androidx.compose.ui.draw.clip
 import androidx.compose.ui.graphics.Color
 import androidx.compose.ui.graphics.asImageBitmap
-import androidx.compose.ui.graphics.drawable.toBitmap
 import androidx.compose.ui.text.font.FontWeight
 import androidx.compose.ui.unit.dp
 import androidx.compose.ui.unit.sp
+import androidx.core.graphics.drawable.toBitmap
 import androidx.lifecycle.viewmodel.compose.viewModel
 import com.security.adwaredetector.model.RiskLevel
 import com.security.adwaredetector.model.RiskResult
-import com.security.adwaredetector.notification.NotificationHelper
 
 /**
  * Pantalla principal de auditoría manual: lista todas las apps de terceros
@@ -135,7 +133,7 @@ fun AppRiskCard(
             }
 
             if (expanded) {
-                Divider(modifier = Modifier.padding(vertical = 8.dp))
+                HorizontalDivider(modifier = Modifier.padding(vertical = 8.dp))
                 Text(
                     text = "Motivos detectados:",
                     fontWeight = FontWeight.SemiBold,
@@ -183,18 +181,4 @@ fun RiskBadge(level: RiskLevel, score: Int) {
             fontWeight = FontWeight.Bold
         )
     }
-}
-
-// Import necesario para el composable Image (se separa para claridad de scope)
-@Composable
-private fun Image(
-    bitmap: androidx.compose.ui.graphics.ImageBitmap,
-    contentDescription: String?,
-    modifier: Modifier = Modifier
-) {
-    androidx.compose.foundation.Image(
-        bitmap = bitmap,
-        contentDescription = contentDescription,
-        modifier = modifier
-    )
 }

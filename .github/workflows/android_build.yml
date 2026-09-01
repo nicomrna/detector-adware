@@ -17,20 +17,15 @@ jobs:
         java-version: '17'
         distribution: 'temurin'
 
-    # Actualiza automáticamente la versión de Gradle Wrapper a la 8.5 (compatible con Java 17)
-    - name: Upgrade Gradle Wrapper to 8.5
+    # Fuerza la instalación limpia de Gradle 8.7 para cumplir con el plugin de Android
+    - name: Force Install Gradle 8.7 Wrapper
       run: |
-        if [ ! -f ./gradlew ]; then
-          echo "Gradlew no encontrado, instalando sistema base..."
-          sudo apt-get update && sudo apt-get install -y gradle
-          gradle wrapper --gradle-version 8.5
-        else
-          chmod +x gradlew
-          ./gradlew wrapper --gradle-version 8.5
-        fi
+        wget https://services.gradle.org/distributions/gradle-8.7-bin.zip
+        unzip -q gradle-8.7-bin.zip
+        ./gradle-8.7/bin/gradle wrapper --gradle-version 8.7
         chmod +x gradlew
 
-    # Compila el APK con Gradle 8.5 y Java 17
+    # Compila el APK con el motor 8.7
     - name: Build Debug APK
       run: ./gradlew assembleDebug --stacktrace -x test -x lint
 

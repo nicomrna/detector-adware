@@ -47,6 +47,9 @@ dependencies {
     implementation("androidx.lifecycle:lifecycle-viewmodel-compose:2.8.4")
     implementation("androidx.activity:activity-compose:1.9.1")
 
+    // Material Components XML (Resuelve el error de Theme.Material3 en AndroidManifest.xml)
+    implementation("com.google.android.material:material:1.12.0")
+
     // Jetpack Compose (BOM controla versiones compatibles entre sí)
     implementation(platform("androidx.compose:compose-bom:2024.06.00"))
     implementation("androidx.compose.ui:ui")

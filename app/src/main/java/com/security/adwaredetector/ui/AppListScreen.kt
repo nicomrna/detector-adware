@@ -1,5 +1,7 @@
 package com.security.adwaredetector.ui
 
+import androidx.core.graphics.drawable.toBitmap
+import com.security.adwaredetector.R
 import androidx.compose.foundation.background
 import androidx.compose.foundation.layout.*
 import androidx.compose.foundation.lazy.LazyColumn
